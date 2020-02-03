@@ -3,12 +3,16 @@ import Stock from '../components/Stock'
 
 class StockContainer extends Component {
 
+  renderStocks = () => {
+    return this.props.stocks.map(stock => <Stock key={'s' + stock.id} stock={stock} addToPortfolio={this.props.addToPortfolio} />)
+  }
+
   render() {
     return (
       <div>
         <h2>Stocks</h2>
         {
-          //render the list of stocks here
+          this.renderStocks()
         }
       </div>
     );
@@ -17,3 +21,4 @@ class StockContainer extends Component {
 }
 
 export default StockContainer;
+
