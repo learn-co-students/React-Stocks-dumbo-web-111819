@@ -56,19 +56,12 @@ class MainContainer extends Component {
     if (!this.state.alphaSort && !this.state.priceSort) {
       return this.state.stonks
     } else if (this.state.alphaSort) {
-      return unsortedStonks.sort((a, b) => { 
-        return (a.name > b.name) ? +1 : (a.name < b.name) ? -1 : 0
-      })
+      // return unsortedStonks.sort(({name: a}, {name: b}) => b - a)
+      return unsortedStonks.sort((a, b) => (
+        (a.name > b.name) ? +1 : (a.name < b.name) ? -1 : 0
+      ))
     } else if (this.state.priceSort) {
-
-      // return unsortedStonks.sort((a, b) => {
-      //   return (a.price > b.price) ? +1 : (a.price < b.price) ? -1 : 0
-      // })
-
-      // return unsortedStonks.sort((a, b) => {
-      //   return a.price - b.price
-      // })
-
+      // return unsortedStonks.sort((a, b) => { return a.price - b.price })
       return unsortedStonks.sort(({price: a}, {price: b}) => b - a)
     }
   }
@@ -100,16 +93,6 @@ class MainContainer extends Component {
     console.log(this.props)
     return (
       <div>
-          {/* stonks={this.sortedStonks()}  */}
-          {/* myPortfolio={this.state.myPortfolio}  */}
-          {/* addToPortfolio={this.addToPortfolio}  */}
-          {/* removeFromPortfolio={this.removeFromPortfolio}  */}
-          {/* alphaSort={this.state.alphaSort} */}
-          {/* toggleAlphaSort={this.toggleAlphaSort} */}
-          {/* priceSort={this.state.priceSort} */}
-          {/* togglePriceSort={this.togglePriceSort} */}
-          {/* // filterStonks={this.filterStonks} */}
-          {/* setFilterBy={this.setFilterBy} */}
         <SearchBar 
           alphaSort={this.state.alphaSort} 
           toggleAlphaSort={this.toggleAlphaSort} 
