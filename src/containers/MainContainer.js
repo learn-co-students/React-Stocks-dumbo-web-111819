@@ -54,7 +54,7 @@ class MainContainer extends Component {
     // console.log('filter function', this.filterStonks())
     const unsortedStonks = this.filterStonks()
     if (!this.state.alphaSort && !this.state.priceSort) {
-      return this.state.stonks
+      return unsortedStonks
     } else if (this.state.alphaSort) {
       // return unsortedStonks.sort(({name: a}, {name: b}) => b - a)
       return unsortedStonks.sort((a, b) => (
