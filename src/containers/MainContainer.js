@@ -10,7 +10,14 @@ class MainContainer extends Component {
     return (
       <div>
 
-        <SearchBar alphaSort={this.props.alphaSort} toggleAlphaSort={this.props.toggleAlphaSort} />
+        <SearchBar 
+          alphaSort={this.props.alphaSort} 
+          toggleAlphaSort={this.props.toggleAlphaSort} 
+          priceSort={this.props.priceSort}
+          togglePriceSort={this.props.togglePriceSort}
+          // filterStonks={this.props.filterStonks}
+          setFilterBy={this.props.setFilterBy}
+        />
 
           <div className="row">
             <div className="col-8">

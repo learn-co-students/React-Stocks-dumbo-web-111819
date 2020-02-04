@@ -8,7 +8,8 @@ class App extends Component {
     stonks: [],
     myPortfolio: [],
     alphaSort: false,
-    priceSort: false
+    priceSort: false,
+    filterBy: ""
   }
 
   componentDidMount(){
@@ -31,47 +32,68 @@ class App extends Component {
   }
 
   removeFromPortfolio = (stonk) => {
-    const theIndex = this.state.myPortfolio.findIndex(stock => stock.id === stonk.id)
+    const idx = this.state.myPortfolio.findIndex(stock => stock.id === stonk.id)
     const newPortfolio = this.state.myPortfolio
-    newPortfolio.splice(theIndex, 1)
+    newPortfolio.splice(idx, 1)
     this.setState({
       myPortfolio: newPortfolio
     })
   }
 
+  filterStonks = () => {
+    console.log('filter', this.state.filterBy)
+    if (this.state.filterBy) {
+      return this.state.stonks.filter(stonk => stonk.type === this.state.filterBy)
+    } else {
+      return this.state.stonks
+    }
+  }
+
   sortedStonks = () => {
-    const sortedStonks = this.state.stonks
-    if (this.state.alphaSort) {
-      sortedStonks.sort((a, b) => { return a.name - b.name})
+    // console.log('filter function', this.filterStonks())
+    const unsortedStonks = this.filterStonks()
+    if (!this.state.alphaSort && !this.state.priceSort) {
+      return this.state.stonks
+    } else if (this.state.alphaSort) {
+      return unsortedStonks.sort((a, b) => { 
+        return (a.name > b.name) ? +1 : (a.name < b.name) ? -1 : 0
+      })
+    } else if (this.state.priceSort) {
+
+      // return unsortedStonks.sort((a, b) => {
+      //   return (a.price > b.price) ? +1 : (a.price < b.price) ? -1 : 0
+      // })
+
+      // return unsortedStonks.sort((a, b) => {
+      //   return a.price - b.price
+      // })
+
+      return unsortedStonks.sort(({price: a}, {price: b}) => b - a)
     }
-    if (this.state.sortPrice) {
-      sortedStonks.sort(stonk => stonk.price)
-    }
-    return sortedStonks
   }
 
   toggleAlphaSort = () => {
-    console.log('haha u sorted me')
-    // if (this.state.alphaSort) {
-      this.setState(prevState => {
-        return {
-          alphaSort: !prevState.alphaSort
-        }
-      })
-    // }
+    this.setState(prevState => {
+      return {
+        alphaSort: !prevState.alphaSort,
+        priceSort: false
+      }
+    })
   }
 
-  // toggleAlphaSort = () => {
-  //   if (this.state.alphaSort) {
-  //     this.setState({
-  //       alphaSort: false
-  //     })
-  //   } else {
-  //     this.setState({
-  //       alphaSort: true
-  //     })
-  //   }
-  // }
+  togglePriceSort = () => {
+    this.setState(prevState => {
+      return {
+        priceSort: !prevState.priceSort,
+        alphaSort: false
+      }
+    })
+  }
+
+  setFilterBy = (value) => {
+    // console.log(value)
+    this.setState({filterBy: value})
+  }
 
   render() {
     return (
@@ -82,8 +104,12 @@ class App extends Component {
           myPortfolio={this.state.myPortfolio} 
           addToPortfolio={this.addToPortfolio} 
           removeFromPortfolio={this.removeFromPortfolio} 
-          toggleAlphaSort={this.toggleAlphaSort}
           alphaSort={this.state.alphaSort}
+          toggleAlphaSort={this.toggleAlphaSort}
+          priceSort={this.state.priceSort}
+          togglePriceSort={this.togglePriceSort}
+          // filterStonks={this.filterStonks}
+          setFilterBy={this.setFilterBy}
         />
       </div>
     );
