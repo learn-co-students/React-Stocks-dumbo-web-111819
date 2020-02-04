@@ -1,24 +1,32 @@
 import React, { Component } from 'react';
-import StockContainer from './StockContainer'
+import StonkContainer from './StonkContainer'
 import PortfolioContainer from './PortfolioContainer'
 import SearchBar from '../components/SearchBar'
 
 class MainContainer extends Component {
 
   render() {
+    console.log(this.props)
     return (
       <div>
+
         <SearchBar/>
 
           <div className="row">
             <div className="col-8">
 
-              <StockContainer stocks={this.props.stocks} addToPortfolio={this.props.addToPortfolio} />
+              <StonkContainer 
+                stonks={this.props.stonks} 
+                addToPortfolio={this.props.addToPortfolio} 
+              />
 
             </div>
             <div className="col-4">
 
-              <PortfolioContainer stocks={this.props.myPortfolio} />
+              <PortfolioContainer 
+                stonks={this.props.myPortfolio} 
+                removeFromPortfolio={this.props.removeFromPortfolio} 
+              />
 
             </div>
           </div>

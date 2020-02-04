@@ -5,7 +5,7 @@ class Header extends Component {
   render() {
     return (
       <header>
-        <h1 className="text-center">Flatiron Stock Exchange</h1>
+        <h1 className="text-center">Flatiron Stonk Exchange</h1>
       </header>
     );
   }

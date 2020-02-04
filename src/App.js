@@ -5,35 +5,54 @@ import MainContainer from './containers/MainContainer'
 class App extends Component {
 
   state = {
-    stocks: [],
+    stonks: [],
     myPortfolio: []
   }
 
   componentDidMount(){
-    fetch("http://localhost:3000/stocks")
+    fetch("http://localhost:3000/stonks")
     .then(r => r.json())
-    .then(stocks => {
+    .then(stonks => {
       this.setState({
-        stocks
+        stonks
       })
     })
   }
 
-  addToPortfolio = (stock) => {
-    const newPortfolio = [...this.state.myPortfolio, stock]
+  addToPortfolio = (stonk) => {
+    const newPortfolio = [...this.state.myPortfolio, stonk]
     this.setState({
       myPortfolio: newPortfolio
     })
+  }
+
+  removeFromPortfolio = (stonk) => {
+    const theIndex = this.state.myPortfolio.findIndex(stock => stock.id === stonk.id)
+    const newPortfolio = this.state.myPortfolio
+    newPortfolio.splice(theIndex, 1)
+    this.setState({
+      myPortfolio: newPortfolio
+    })
+  }
+
+  sortedStonks = () => {
+    this.state.stonks.sort(stonk => stonk.name)
   }
 
   render() {
     return (
       <div>
         <Header/>
-        <MainContainer stocks={this.state.stocks} myPortfolio={this.state.myPortfolio} addToPortfolio={this.addToPortfolio} />
+        <MainContainer 
+          stonks={this.state.stonks} 
+          myPortfolio={this.state.myPortfolio} 
+          addToPortfolio={this.addToPortfolio} 
+          removeFromPortfolio={this.removeFromPortfolio} 
+        />
       </div>
     );
   }
 }
 
 export default App;
+
