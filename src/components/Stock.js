@@ -1,21 +1,31 @@
 import React from 'react'
 
-const Stock = () => (
-  <div>
+const Stock = (props) => {
+  // console.log(props.stock)
+  let {price,ticker,name,type} = props.stock
 
-    <div className="card">
-      <div className="card-body">
+  let handleClick = () => { 
+    // console.log(name,price)
+    props.addStock(name,price) 
+  }
+  return(
+    
+  <div>
+    
+    <div className="card" onClick={handleClick}>
+      <div className="card-body" >
         <h5 className="card-title">{
-            //Company Name
+            name 
           }</h5>
         <p className="card-text">{
-            //ticker: stock price
+            price
           }</p>
       </div>
     </div>
 
 
   </div>
-);
+  
+    )  };
 
 export default Stock
