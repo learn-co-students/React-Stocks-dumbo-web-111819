@@ -10,7 +10,7 @@ class MainContainer extends Component {
     return (
       <div>
 
-        <SearchBar/>
+        <SearchBar alphaSort={this.props.alphaSort} toggleAlphaSort={this.props.toggleAlphaSort} />
 
           <div className="row">
             <div className="col-8">

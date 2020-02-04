@@ -4,6 +4,7 @@ import Stonk from '../components/Stonk'
 class StonkContainer extends Component {
 
   renderStonks = () => {
+    console.log(this.props.stonks)
     return this.props.stonks.map(stonk => 
       <Stonk 
         key={'s' + stonk.id} 

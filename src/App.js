@@ -6,7 +6,9 @@ class App extends Component {
 
   state = {
     stonks: [],
-    myPortfolio: []
+    myPortfolio: [],
+    alphaSort: false,
+    priceSort: false
   }
 
   componentDidMount(){
@@ -20,10 +22,12 @@ class App extends Component {
   }
 
   addToPortfolio = (stonk) => {
-    const newPortfolio = [...this.state.myPortfolio, stonk]
-    this.setState({
-      myPortfolio: newPortfolio
-    })
+    if (!this.state.myPortfolio.includes(stonk)){
+      const newPortfolio = [...this.state.myPortfolio, stonk]
+      this.setState({
+        myPortfolio: newPortfolio
+      })
+    }
   }
 
   removeFromPortfolio = (stonk) => {
@@ -36,18 +40,50 @@ class App extends Component {
   }
 
   sortedStonks = () => {
-    this.state.stonks.sort(stonk => stonk.name)
+    const sortedStonks = this.state.stonks
+    if (this.state.alphaSort) {
+      sortedStonks.sort((a, b) => { return a.name - b.name})
+    }
+    if (this.state.sortPrice) {
+      sortedStonks.sort(stonk => stonk.price)
+    }
+    return sortedStonks
   }
+
+  toggleAlphaSort = () => {
+    console.log('haha u sorted me')
+    // if (this.state.alphaSort) {
+      this.setState(prevState => {
+        return {
+          alphaSort: !prevState.alphaSort
+        }
+      })
+    // }
+  }
+
+  // toggleAlphaSort = () => {
+  //   if (this.state.alphaSort) {
+  //     this.setState({
+  //       alphaSort: false
+  //     })
+  //   } else {
+  //     this.setState({
+  //       alphaSort: true
+  //     })
+  //   }
+  // }
 
   render() {
     return (
       <div>
         <Header/>
         <MainContainer 
-          stonks={this.state.stonks} 
+          stonks={this.sortedStonks()} 
           myPortfolio={this.state.myPortfolio} 
           addToPortfolio={this.addToPortfolio} 
           removeFromPortfolio={this.removeFromPortfolio} 
+          toggleAlphaSort={this.toggleAlphaSort}
+          alphaSort={this.state.alphaSort}
         />
       </div>
     );
